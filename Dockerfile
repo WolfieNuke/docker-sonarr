@@ -3,7 +3,10 @@ MAINTAINER tuxeh <sirtuxeh@gmail.com>
 
 # mono 3.10 currently doesn't install in debian jessie due to libpeg8 being removed.
 
-RUN useradd -r -g 100 -u 108 nzbdrone
+#RUN useradd -r -g 100 -u 108 nzbdrone
+USER root
+RUN groupadd -g 100 users && gpasswd -a nobody users && groupadd -g 65536 apps && gpasswd -a nobody apps
+USER nobody
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
   && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC \
@@ -11,7 +14,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
   && apt-get update -q \
   && apt-get install -qy nzbdrone mediainfo \
   && apt-get clean \
-  && apt-get install sudo \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
@@ -32,7 +34,6 @@ ADD sonarr-update.sh /sonarr-update.sh
 RUN chmod 755 /sonarr-update.sh \
   && chown nzbdrone:users /sonarr-update.sh
 
-USER nzbdrone
 WORKDIR /opt/NzbDrone
 
 ENTRYPOINT ["/start.sh"]
