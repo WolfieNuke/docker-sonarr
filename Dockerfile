@@ -14,6 +14,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
   && apt-get install sudo \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+
 RUN chown -R nzbdrone:users /opt/NzbDrone \
   ; mkdir -p /volumes/config/sonarr /volumes/completed /volumes/media \
   && chown -R nzbdrone:users /volumes
