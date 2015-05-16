@@ -7,9 +7,6 @@ MAINTAINER tuxeh <sirtuxeh@gmail.com>
 #ADD userpermissions.sh /
 #RUN bash /userpermissions.sh
 RUN useradd -r -g 100 -u 108 nzbdrone
-USER nzbdrone
-RUN usermod -u 108 nzbdrone
-RUN usermod -g 100 nzbdrone
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
   && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC \
@@ -36,6 +33,7 @@ ADD develop/sonarr-update.sh /sonarr-update.sh
 RUN chmod 755 /sonarr-update.sh \
   && chown nzbdrone:users /sonarr-update.sh
 
+USER nzbdrone
 WORKDIR /opt/NzbDrone
 
 ENTRYPOINT ["/start.sh"]
