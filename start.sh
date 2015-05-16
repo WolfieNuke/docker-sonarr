@@ -8,7 +8,6 @@ function handle_signal {
 
 trap "handle_signal" SIGINT SIGTERM SIGHUP
 
-USER nzbdrone
 
 echo "starting sonarr"
 sudo -u nzbdrone mono /opt/NzbDrone/NzbDrone.exe --no-browser -data=/volumes/config/sonarr & wait
