@@ -4,8 +4,9 @@ MAINTAINER tuxeh <sirtuxeh@gmail.com>
 # mono 3.10 currently doesn't install in debian jessie due to libpeg8 being removed.
 
 #USER nzbdrone
-ADD userpermissions.sh /
-RUN bash /userpermissions.sh
+#ADD userpermissions.sh /
+#RUN bash /userpermissions.sh
+RUN useradd -r -g 100 -u 108 nzbdrone
 
 RUN usermod -u 108 nzbdrone
 RUN usermod -g 100 nzbdrone
