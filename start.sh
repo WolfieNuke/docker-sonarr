@@ -10,5 +10,5 @@ trap "handle_signal" SIGINT SIGTERM SIGHUP
 
 
 echo "starting sonarr"
-sudo -u nzbdrone mono /opt/NzbDrone/NzbDrone.exe --no-browser -data=/volumes/config/sonarr & wait
+mono /opt/NzbDrone/NzbDrone.exe --no-browser -data=/volumes/config/sonarr & wait
 echo "stopping sonarr"
