@@ -11,6 +11,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
   && apt-get update -q \
   && apt-get install -qy nzbdrone mediainfo \
   && apt-get clean \
+  && apt-get sudo \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN chown -R nzbdrone:users /opt/NzbDrone \
