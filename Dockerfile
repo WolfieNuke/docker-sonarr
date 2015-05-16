@@ -5,8 +5,8 @@ MAINTAINER tuxeh <sirtuxeh@gmail.com>
 
 #RUN useradd -r -g 100 -u 108 nzbdrone
 USER root
+RUN usermod -g 100 nobody
 RUN groupadd -g 65536 apps && gpasswd -a nobody apps
-RUN usermod -g 100 plex
 USER nobody
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
