@@ -3,12 +3,6 @@ MAINTAINER tuxeh <sirtuxeh@gmail.com>
 
 # mono 3.10 currently doesn't install in debian jessie due to libpeg8 being removed.
 
-#RUN useradd -r -g 100 -u 108 nzbdrone
-USER root
-RUN usermod -g 100 nobody
-RUN groupadd -g 65536 apps && gpasswd -a nobody apps
-USER nobody
-
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
   && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC \
   && echo "deb http://apt.sonarr.tv/ develop main" | tee -a /etc/apt/sources.list \
@@ -34,6 +28,12 @@ RUN chmod +x /start.sh
 ADD sonarr-update.sh /sonarr-update.sh
 RUN chmod 755 /sonarr-update.sh \
   && chown nobody:users /sonarr-update.sh
+
+#RUN useradd -r -g 100 -u 108 nzbdrone
+USER root
+RUN usermod -g 100 nobody
+RUN groupadd -g 65536 apps && gpasswd -a nobody apps
+USER nobody
 
 WORKDIR /opt/NzbDrone
 
