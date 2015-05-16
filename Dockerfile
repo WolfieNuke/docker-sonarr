@@ -27,13 +27,14 @@ RUN chmod +x /start.sh
 
 ADD sonarr-update.sh /sonarr-update.sh
 RUN chmod 755 /sonarr-update.sh \
-  && chown nobody:users /sonarr-update.sh
+  && chown nzbdrone:users /sonarr-update.sh
 
 #RUN useradd -r -g 100 -u 108 nzbdrone
 USER root
-RUN usermod -g 100 nobody
-RUN groupadd -g 65536 apps && gpasswd -a nobody apps
-USER nobody
+RUN useradd -r -g 100 -u 108 nzbdrone
+RUN usermod -g 100 nzbdrone
+RUN groupadd -g 65536 apps && gpasswd -a nzbdrone apps
+USER nzbdrone
 
 WORKDIR /opt/NzbDrone
 
